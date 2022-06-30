@@ -120,7 +120,7 @@ def __main__():
                         for line in cheques_dni:
                             print(line)
                     elif parametros[2].upper() == "CSV":
-                        with open(f"-{parametros[1]}-{datetime.timestamp(datetime.now())}-.csv", 'w', newline="") as file:
+                        with open(f"-{parametros[1]}-{int(datetime.timestamp(datetime.now()))}-.csv", 'w', newline="") as file:
                             writer = csv.writer(file)
                             writer.writerow(
                                 ["FechaOrigen", "FechaPago", "Valor", "Cuenta"])
