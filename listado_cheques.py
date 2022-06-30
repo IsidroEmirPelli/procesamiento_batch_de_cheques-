@@ -45,15 +45,6 @@ def _check_estado(estado):
         exit
 
 
-def _check_estado(estado):
-    """Verify if the state is valid"""
-    if estado.upper() in ["PENDIENTE", "APROBADO", "RECHAZADO"]:
-        return True
-    else:
-        print('Parametro invalido')
-        exit
-
-
 def _verify_parameters(parametros):
 
     if len(parametros) < 4:
