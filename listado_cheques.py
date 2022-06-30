@@ -45,6 +45,15 @@ def _check_estado(estado):
         exit
 
 
+def _check_estado(estado):
+    """Verify if the state is valid"""
+    if estado.upper() in ["PENDIENTE", "APROBADO", "RECHAZADO"]:
+        return True
+    else:
+        print('Parametro invalido')
+        exit
+
+
 def _verify_parameters(parametros):
 
     if len(parametros) < 4:
@@ -55,12 +64,13 @@ def _verify_parameters(parametros):
         # if the user enters the parameters
         if not _verify_dni(parametros[1]) or not _check_salida(parametros[2]) or not _check_tipo(parametros[3]):
             return False
-        if len(parametros) == 5:
-            if not _check_estado(parametros[4]):
-                return False
-        if len(parametros) == 6:
-            if not _check_rango(parametros[5]):
-                return False
+        match len(parametros):
+            case 5:
+                if not _check_estado(parametros[4]):
+                    return False
+            case 6:
+                if not _check_estado(parametros[4]) and not _check_rango(parametros[5]):
+                    return False
         return True
 
 
@@ -72,7 +82,7 @@ def _getting_data(archivo):
             next(reader)
             return list(reader)
     except FileNotFoundError:
-        return None, None
+        return None
 
 
 def _searching_dni(data, dni, tipo, estado=None, rango=None):
