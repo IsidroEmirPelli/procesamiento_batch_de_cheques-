@@ -1,7 +1,6 @@
 from datetime import datetime
 import sys
 import csv
-parametros = sys.argv[1:]
 
 
 def _verify_dni(dni):
@@ -98,6 +97,7 @@ def _searching_dni(data, dni, tipo, estado=None, rango=None):
 
 
 def __main__():
+    parametros = sys.argv[1:]
     if _verify_parameters(parametros):
         data = _getting_data(parametros[0])
         if data is not None:
