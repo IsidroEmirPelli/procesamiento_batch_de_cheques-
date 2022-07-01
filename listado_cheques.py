@@ -54,7 +54,7 @@ def _check_estado(estado):
 
 
 def _verify_parameters(parametros):
-
+    
     if len(parametros) < 4:
         # if the user doesn't enter the parameters
         print("Faltan parametros")
@@ -85,10 +85,10 @@ def _getting_data(archivo):
 
 
 def _searching_dni(data, dni, tipo, estado=None, rango=None):
-    """Search the DNI in the list and add the coincidences a list"""
+    """Search the DNI in the list and add the coincidences to list"""
     cheques = [line for line in data if line[8] == dni and line[9] == tipo and (estado is None or line[10] == estado) and (rango is None or (datetime.strptime(
         line[11], '%d-%m-%Y') >= datetime.strptime(rango[0], '%d-%m-%Y') and datetime.strptime(line[11], '%d-%m-%Y') <= datetime.strptime(rango[1], '%d-%m-%Y')))]
-    # Create a list with de chequesID
+    # Create a list with the chequesID
     cheques_id = [line[0] for line in cheques]
     if len(cheques_id) != len(set(cheques_id)):
         print("Hay cheques repetidos")
