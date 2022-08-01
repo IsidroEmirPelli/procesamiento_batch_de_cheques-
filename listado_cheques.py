@@ -54,7 +54,7 @@ def _check_estado(estado):
 
 
 def _verify_parameters(parametros):
-    
+
     if len(parametros) < 4:
         # if the user doesn't enter the parameters
         print("Faltan parametros")
@@ -84,10 +84,23 @@ def _getting_data(archivo):
         return None
 
 
+def _checktimestamp(first_date, second_date, time_stamp):
+    """Check if the timestamp is in the range"""
+    # Convert first_date and second_date and parse time_stamp to timestamp
+    first_date = datetime.strptime(first_date, '%d-%m-%Y')
+    second_date = datetime.strptime(second_date, '%d-%m-%Y')
+    time_stamp = datetime.fromtimestamp(int(time_stamp))
+    # check if the timestamp is in the range
+    if first_date <= time_stamp <= second_date:
+        return True
+    else:
+        return False
+
+
 def _searching_dni(data, dni, tipo, estado=None, rango=None):
     """Search the DNI in the list and add the coincidences to list"""
-    cheques = [line for line in data if line[8] == dni and line[9] == tipo and (estado is None or line[10] == estado) and (rango is None or (datetime.strptime(
-        line[11], '%d-%m-%Y') >= datetime.strptime(rango[0], '%d-%m-%Y') and datetime.strptime(line[11], '%d-%m-%Y') <= datetime.strptime(rango[1], '%d-%m-%Y')))]
+    cheques = [line for line in data if line[8] == dni and line[9] == tipo and (
+        estado is None or line[10] == estado) and (rango is None or _checktimestamp(rango.split(":")[0], rango.split(":")[1], line[6]))]
     # Create a list with the chequesID
     cheques_id = [line[0] for line in cheques]
     if len(cheques_id) != len(set(cheques_id)):
