@@ -90,11 +90,7 @@ def _checktimestamp(first_date, second_date, time_stamp):
     first_date = datetime.strptime(first_date, '%d-%m-%Y')
     second_date = datetime.strptime(second_date, '%d-%m-%Y')
     time_stamp = datetime.fromtimestamp(int(time_stamp))
-    # check if the timestamp is in the range
-    if first_date <= time_stamp <= second_date:
-        return True
-    else:
-        return False
+    return first_date <= time_stamp <= second_date
 
 
 def _searching_dni(data, dni, tipo, estado=None, rango=None):
